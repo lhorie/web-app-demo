@@ -1,0 +1,56 @@
+<!doctype html>
+<html manifest="cache.manifest">
+	<head>
+		<title>HTML5 iOS App Development</title>
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<style>
+		/* some basic styles */
+		.thumbnail {position:absolute;}
+		.bar-graph {background:url(images/bg.png) no-repeat #fff;height:385px;position:absolute;width:565px;}
+		.bar {bottom:36px;position:absolute;}
+		.bar-1 {left:10px;}
+		.bar-2 {left:145px;}
+		.bar-3 {left:282px;}
+		.bar-4 {left:420px;}
+
+		/* the animation stuff */
+		.bar-graph {
+			-webkit-transform:scale(0);
+			-webkit-transition:-webkit-transform 1s;
+		}
+		.bar-graph.animated {
+			-webkit-transform:scale(1);
+		}
+		
+		.bar-graph .bar {
+			-webkit-transform:scaleY(0);
+			-webkit-transform-origin:100% 100%;
+			-webkit-transition:-webkit-transform 1s;
+			-webkit-transition-delay:1s;
+		}
+		.bar-graph.animated .bar {
+			-webkit-transform:scaleY(1);
+		}
+		</style>
+	</head>
+	<body>
+		<img class="thumbnail" src="images/thumbnail.png" />
+		
+		<div class="bar-graph">
+			<img class="bar bar-1" src="images/bar1.png" />
+			<img class="bar bar-2" src="images/bar2.png" />
+			<img class="bar bar-3" src="images/bar3.png" />
+			<img class="bar bar-4" src="images/bar4.png" />
+		</div>
+		
+		<script src="jquery.js"></script>
+		<script src="pinch.js"></script>
+		<script>
+		$(document).on("touchstart touchmove", false)
+		$("body").on("pinchchange", function(e) {
+			if (e.scale > 1.5) $(".bar-graph").addClass("animated")
+			if (e.scale < 0.8) $(".bar-graph").removeClass("animated")
+		})
+		</script>
+	</body>
+</html>
